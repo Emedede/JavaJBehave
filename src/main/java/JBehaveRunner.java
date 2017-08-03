@@ -24,6 +24,6 @@ public class JBehaveRunner extends JUnitStories {
         protected List<String> storyPaths() {
 
             return Arrays.asList( "/Users/marcelodiaz/Documents/w/JBehaveOK/src/main/stories/example.story");
-                    //"stories/Wishlist.story");
+                    //"stories/Original.story");
         }
     }
