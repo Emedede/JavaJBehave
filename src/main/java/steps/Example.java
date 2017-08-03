@@ -68,7 +68,7 @@ public class Example {
 
     public void setEnvironment(){
         this.data = this.env.setProperties(this.data);
-        this.driver = this.env.createDriver();
+        this.driver = this.env.doCreateWebDriver();
     }
 
 }

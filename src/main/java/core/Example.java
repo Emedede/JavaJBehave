@@ -22,7 +22,7 @@ public class Example extends JUnitStory {
 
     private String[] listOperSystem={"Windows","Mac","Linux"};
     //According to each environment, must be set 0=Win, 1=Mac, 2=Linux
-    private String currentSO=listOperSystem[1];
+    private String currentSO=listOperSystem[0];
     Properties data = new Properties();
 
     @Override
@@ -58,10 +58,10 @@ public class Example extends JUnitStory {
     public Properties setProperties(Properties prop){
 
         try{
-            if (currentSO.equals("Windows")) {
-                prop.load(new FileInputStream("C:\\w\\FunctTest\\src\\main\\resources\\data.properties"));
+            if (currentSO.equalsIgnoreCase("Windows")) {
+                prop.load(new FileInputStream("C:\\w\\JBehaveOK\\src\\main\\resources\\data.properties"));
 
-            } else if (currentSO.equals("Mac")) {
+            } else if (currentSO.equalsIgnoreCase("Mac")) {
                 prop.load(new FileInputStream("/Users/marcelodiaz/Documents/w/JBehaveOK/src/main/resources/data.properties"));
             } else  {
                 prop.load(new FileInputStream("/Users/marcelodiaz/Documents/w/JBehaveOK/src/main/resources/data.properties"));
