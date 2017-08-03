@@ -22,9 +22,12 @@ public class Example extends JUnitStory {
 
     private String[] listOperSystem={"Windows","Mac","Linux"};
     //According to each environment, must be set 0=Win, 1=Mac, 2=Linux
-    private String currentSO=listOperSystem[0];
+    private String currentSO=listOperSystem[1];
     Properties data = new Properties();
 
+    public Properties getData(){
+        return this.data;
+    }
     @Override
     public Configuration configuration() {
         URL storyURL = null;

@@ -1,9 +1,12 @@
 package steps;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import core.EnvironmentData;
 import org.jbehave.core.annotations.*;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
+import pages.HomePage;
 import pages.PageFactory;
 
 import java.util.Properties;
@@ -14,35 +17,56 @@ import static org.junit.Assert.assertTrue;
  */
 public class Example {
     WebDriver driver = null;
-    EnvironmentData env= new EnvironmentData();
-    Properties data = new Properties();
+    EnvironmentData env;
+    Properties data;
+    ExtentReports extent;
+    ExtentHtmlReporter htmlReporter;
+    PageFactory pageFactory;
+    private HomePage homePage;
 
-    PageFactory pageFactory= new PageFactory(driver);
-    //String browserList =
-
+    public Example(){
+        env= new EnvironmentData();
+        driver= env.doCreateWebDriver();
+        data= env.getProperties();
+        pageFactory= new PageFactory(driver,data);
+        homePage = pageFactory.newHome();
+        htmlReporter = new ExtentHtmlReporter("extent.html");
+        extent = new ExtentReports();
+    }
     @BeforeScenario
     public void scenarioSetup() {
         System.out.println(" >>>> This is the Before !!!!");
+        // initialize ExtentReports and attach the HtmlReporter
+
     }
 
     @After
     void quitDriverScenario() {
-        if (driver!=null) {
+        if (!(driver==null)) {
+            driver.manage().deleteAllCookies();
             driver.close();
-            driver.quit();
+            //driver.quit();
         }
+        // attach only HtmlReporter
+        extent.attachReporter(htmlReporter);
     }
     @AfterStory
-    void quitDriverStory() {
-        driver.close();
-        driver.quit();
+    public void tearDown(){
+        if (!(driver==null)) {
+            driver.manage().deleteAllCookies();
+            //driver.close();
+            driver.quit();
+        }
     }
     @Given("user $username with password $passcode is on product page $url")
     public void loadProduct(String username, String passcode, String url) {
         System.out.println(" >>>> This is the Given!, I'm on steps/Example");
-        setEnvironment();
-        String baseURL= this.data.getProperty("primaryURL");
-        driver.get(baseURL);
+        //setEnvironment();
+
+        String baseURL= data.getProperty("primaryURL");
+        System.out.println("***> primaryURL: '"+baseURL+"'");
+        //driver.get(baseURL);
+        this.homePage.goToUrl(baseURL);
     }
 
     @When("the user clicks add to wishlist")
@@ -63,12 +87,12 @@ public class Example {
         // check product entries
         // assert if product not found
         System.out.println(" >>>> This is the Then 222!!!!");
-        quitDriverScenario();
+        //quitDriverScenario();
     }
 
     public void setEnvironment(){
-        this.data = this.env.setProperties(this.data);
-        this.driver = this.env.doCreateWebDriver();
+        this.data = this.env.getProperties();
+        //this.driver = this.env.createDriver();
     }
 
 }

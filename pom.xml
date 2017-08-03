@@ -6,7 +6,7 @@
     <groupId>FunctionalJBehave</groupId>
     <artifactId>FunctTest</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>A tech test for Automation Testers build using Java with Selenium and jBehave</name>
+    <name>Automation Framework for functional testing using Java with Selenium and jBehave</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -59,6 +59,11 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
             <version>2.47.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>3.0.6</version>
         </dependency>
     </dependencies>
 
